@@ -25,12 +25,23 @@ body {
 
 .sketch-pad {
     background-color: rgb(206, 206, 206);
-    width: 35vw;
-    height: 35vw;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .controls {
-    height: 35vw;
-    width: 20vw;
+    height: 500px;
+    width: 250px;
     background-color: rgb(223, 223, 223);
+}
+
+.pixel {
+    background-color: aliceblue;
+}
+
+.pixel:hover {
+    background-color: black !important;
 }
