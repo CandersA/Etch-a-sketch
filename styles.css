@@ -34,7 +34,7 @@ body {
 }
 
 .sketch-pad:hover {
-    cursor: url(assets/pencil.svg), auto;
+    cursor: url(assets/pencil.svg) 0 30, auto;
 }
 
 .pixel {

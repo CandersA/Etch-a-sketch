@@ -21,7 +21,14 @@ resetButton.addEventListener('click', () => {
 eraser.addEventListener('click', () => {
     pixelColor = '#fff';
     eraser.classList.toggle("active");
-    sketchPad.style.cursor = "url(assets/eraser.svg), auto"
+    console.log(eraser.classList.contains("active"));
+    if (eraser.classList.contains("active")) {
+        sketchPad.style.cursor = "url(assets/eraser.svg) 15 15, auto";
+    }
+    else {
+        sketchPad.style.cursor = "url(assets/pencil.svg) 0 30, auto";
+        pixelColor = colorPicker.value;
+    }
 });
 
 slider.oninput = function() {
@@ -41,7 +48,7 @@ colorPicker.oninput = function() {
 function resetEraser() {
     eraser.classList.remove("active");
     pixelColor = colorPicker.value;
-    sketchPad.style.cursor = "url(assets/pencil.svg), auto"
+    sketchPad.style.cursor = "url(assets/pencil.svg) 0 30, auto";
 };
 
 function createGrid(padSize, pixelRow) {
