@@ -14,8 +14,18 @@
         <div id="container">
             <div class="controls">
                 <div class="slidecontainer">
-                    <input type="range" min="16" max="100" value="16" class="slider" id="myRange">
-                    <span id="rangedisplay">16</span>
+                    <span class="controlhead">Controls</span>
+                    <div class="range-cont">
+                        <span class="control">Size of screen</span>
+                        <input type="range" min="16" max="100" value="16" class="slider" id="myRange">
+                        <span id="rangedisplay" calss="control">16 Pixels</span>
+                    </div>
+                    <div class="color-cont">
+                        <input type="color" id="colorPick" name="favcolor" value="#000000">
+                        <span id="colordisplay" class="control">Color</span>
+                    </div>
+                    <button id="eraser">Eraser</button>
+                    <button id="resetbtn">Reset</button>
                 </div>
             </div>
             <div class="sketch-pad">

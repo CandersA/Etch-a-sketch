@@ -1,9 +1,48 @@
-console.log("JS");
-
 const sketchPad = document.querySelector(".sketch-pad");
-let padSize = sketchPad.offsetHeight;
+let padSize = (sketchPad.offsetHeight - 6);
 let pixelRow = 16;
+let pixelColor = '#000000';
+const slider = document.getElementById("myRange");
+const rangeDisplay = document.getElementById("rangedisplay");
+const colorPicker = document.getElementById("colorPick");
+const resetButton = document.getElementById("resetbtn");
+const eraser = document.getElementById("eraser");
+
 createGrid(padSize, pixelRow);
+colorfulPixels();
+
+resetButton.addEventListener('click', () => {
+    sketchPad.textContent = '';
+    createGrid(padSize, pixelRow);
+    colorfulPixels();
+    resetEraser();
+});
+
+eraser.addEventListener('click', () => {
+    pixelColor = '#fff';
+    eraser.classList.toggle("active");
+    sketchPad.style.cursor = "url(assets/eraser.svg), auto"
+});
+
+slider.oninput = function() {
+    rangeDisplay.textContent = `${this.value} Pixels`;
+    sketchPad.textContent = '';
+    pixelRow = this.value;
+    createGrid(padSize, pixelRow);
+    colorfulPixels();
+    resetEraser();
+};
+
+colorPicker.oninput = function() {
+    pixelColor = this.value;
+    resetEraser();
+};
+
+function resetEraser() {
+    eraser.classList.remove("active");
+    pixelColor = colorPicker.value;
+    sketchPad.style.cursor = "url(assets/pencil.svg), auto"
+};
 
 function createGrid(padSize, pixelRow) {
     let pixelSize = padSize / pixelRow;
@@ -18,15 +57,17 @@ function createGrid(padSize, pixelRow) {
         sketchPad.appendChild(onePixel);
         i++;
     }
-}
+};
 
-let slider = document.getElementById("myRange");
-const rangeDisplay = document.getElementById("rangedisplay");
+function colorfulPixels() {
+    let pixels = document.getElementsByClassName("pixel");
+    let pixelsArray = Array.prototype.slice.call(pixels);
 
-slider.oninput = function() {
-    rangeDisplay.textContent = this.value;
-    sketchPad.textContent = '';
-    pixelRow = this.value;
-    console.log(pixelRow);
-    createGrid(padSize, pixelRow);
-  }
+    pixelsArray.forEach((pixel) => {
+        pixel.addEventListener('mouseover', (e) => {
+            if (e.buttons === 1) {
+                pixel.style.backgroundColor = pixelColor;
+            }
+        });
+    })
+};
