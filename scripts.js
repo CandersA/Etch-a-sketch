@@ -1,16 +1,24 @@
+
+/* Get sketch-pad div, set it's size 6px less, because offsetHeight picks width with border */
 const sketchPad = document.querySelector(".sketch-pad");
 let padSize = (sketchPad.offsetHeight - 6);
+
+/* Set default parameters of pixels in a row and their colour when hovered over */
 let pixelRow = 16;
 let pixelColor = '#000000';
+
+/* Pick up necessary elements from the DOM */
 const slider = document.getElementById("myRange");
 const rangeDisplay = document.getElementById("rangedisplay");
 const colorPicker = document.getElementById("colorPick");
 const resetButton = document.getElementById("resetbtn");
 const eraser = document.getElementById("eraser");
 
+/* Run these functions first to get all default settings */
 createGrid(padSize, pixelRow);
 colorfulPixels();
 
+/* When reset button is pushed, reset sketch-pad by deleting data from old one and creating a new one */
 resetButton.addEventListener('click', () => {
     sketchPad.textContent = '';
     createGrid(padSize, pixelRow);
@@ -18,10 +26,12 @@ resetButton.addEventListener('click', () => {
     resetEraser();
 });
 
+/* When eraser button is clicked set pixelColor to the same color as the sketch-pad, make it active */
 eraser.addEventListener('click', () => {
     pixelColor = '#fff';
     eraser.classList.toggle("active");
-    console.log(eraser.classList.contains("active"));
+
+    /* If class active is toggled, add an eraser cursor, else add a pencil cursor */
     if (eraser.classList.contains("active")) {
         sketchPad.style.cursor = "url(assets/eraser.svg) 15 15, auto";
     }
@@ -31,6 +41,7 @@ eraser.addEventListener('click', () => {
     }
 });
 
+/* When range slider is moved display the value, reset the sketch-pad */
 slider.oninput = function() {
     rangeDisplay.textContent = `${this.value} Pixels`;
     sketchPad.textContent = '';
@@ -40,6 +51,7 @@ slider.oninput = function() {
     resetEraser();
 };
 
+/* If the color is changed, change the color and reset the eraser icon */
 colorPicker.oninput = function() {
     pixelColor = this.value;
     resetEraser();
@@ -51,10 +63,12 @@ function resetEraser() {
     sketchPad.style.cursor = "url(assets/pencil.svg) 0 30, auto";
 };
 
+/* Create the grid with a specified amount of pixels */
 function createGrid(padSize, pixelRow) {
     let pixelSize = padSize / pixelRow;
     let pixelAmount = pixelRow * pixelRow;
 
+    /* Run a loop where each pixel is created with a class of "pixel" */
     i = 0;
     while (i < pixelAmount) {
         let onePixel = document.createElement("div");
@@ -66,6 +80,7 @@ function createGrid(padSize, pixelRow) {
     }
 };
 
+/* Pick up all the pixels and on mouse over + click change their color to the one specified */
 function colorfulPixels() {
     let pixels = document.getElementsByClassName("pixel");
     let pixelsArray = Array.prototype.slice.call(pixels);
